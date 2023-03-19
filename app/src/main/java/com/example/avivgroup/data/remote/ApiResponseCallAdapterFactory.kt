@@ -11,7 +11,7 @@ class ApiResponseCallAdapterFactory : CallAdapter.Factory() {
     override fun get(
         returnType: Type,
         annotations: Array<Annotation>,
-        retrofit: Retrofit
+        retrofit: Retrofit,
     ) = when (getRawType(returnType)) {
         Call::class.java -> {
             val callType = getParameterUpperBound(0, returnType as ParameterizedType)

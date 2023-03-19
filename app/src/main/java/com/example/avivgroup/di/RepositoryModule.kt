@@ -1,8 +1,10 @@
 package com.example.avivgroup.di
 
 import com.example.avivgroup.data.remote.ApiInterface
-import com.example.avivgroup.data.repository.PropertiesRepository
-import com.example.avivgroup.data.repository.PropertiesRepositoryImpl
+import com.example.avivgroup.data.repository.properties.PropertiesRepository
+import com.example.avivgroup.data.repository.properties.PropertiesRepositoryImpl
+import com.example.avivgroup.data.repository.singleproperty.PropertyRepository
+import com.example.avivgroup.data.repository.singleproperty.PropertyRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,7 +21,13 @@ class RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideImagineRepository(apiService: ApiInterface): PropertiesRepository {
+    fun providePropertiesRepository(apiService: ApiInterface): PropertiesRepository {
         return PropertiesRepositoryImpl(apiService)
+    }
+
+    @Singleton
+    @Provides
+    fun providePropertyRepository(apiService: ApiInterface): PropertyRepository {
+        return PropertyRepositoryImpl(apiService)
     }
 }

@@ -1,6 +1,5 @@
 package com.example.avivgroup.core.utils
 
-import android.annotation.TargetApi
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
@@ -12,7 +11,6 @@ import android.os.Build
  * @param onInternetConnectivityListener A listener for states.
  * @author Malik Dawar, malikdawar@hotmail.com
  */
-@TargetApi(Build.VERSION_CODES.LOLLIPOP)
 class InternetMonitor(private val onInternetConnectivityListener: OnInternetConnectivityListener) {
 
     private val networkCallback = object : ConnectivityManager.NetworkCallback() {
@@ -35,7 +33,8 @@ class InternetMonitor(private val onInternetConnectivityListener: OnInternetConn
      * Note: Make sure to unregister.
      */
     fun register(context: Context) {
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkRequest = NetworkRequest.Builder().build()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             connectivityManager.requestNetwork(networkRequest, networkCallback, 1000)
@@ -48,7 +47,8 @@ class InternetMonitor(private val onInternetConnectivityListener: OnInternetConn
      * @param context
      */
     fun unregister(context: Context) {
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         connectivityManager.unregisterNetworkCallback(networkCallback)
     }
 

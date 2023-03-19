@@ -4,13 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
-import com.example.avivgroup.adapters.PhotosAdapter
+import com.example.avivgroup.R
+import com.example.avivgroup.adapters.PropertyAdapter
 import com.example.avivgroup.base.BaseFragment
 import com.example.avivgroup.core.extensions.replaceFragment
 import com.example.avivgroup.core.extensions.showToastMsg
 import com.example.avivgroup.databinding.FragmentHomeBinding
+import com.example.avivgroup.ui.MainViewModel
 import com.example.avivgroup.ui.details.DetailsFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,11 +23,12 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     private val viewModel: HomeViewModel by viewModels()
+    private val sharedViewModel: MainViewModel by activityViewModels()
     private lateinit var viewBinding: FragmentHomeBinding
-    private lateinit var photosAdapter: PhotosAdapter
+    private lateinit var propertyAdapter: PropertyAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,15 +40,15 @@ class HomeFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        photosAdapter = PhotosAdapter().also {
-            it.onPhotoSelectionListener { photoModel ->
-                mainActivity.savePhotoModel(photoModel)
+        propertyAdapter = PropertyAdapter().also {
+            it.onPropertySelectionListener { property ->
+                sharedViewModel.savePropertyModel(property)
                 replaceFragment(DetailsFragment(), addToBackStack = true)
             }
 
             it.stateRestorationPolicy =
                 RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-            viewBinding.photosRecyclerView.adapter = it
+            viewBinding.propertiesRecyclerView.adapter = it
         }
 
         initObservations()
@@ -57,6 +61,10 @@ class HomeFragment : BaseFragment() {
                     progressDialog.show()
                 }
 
+                is ContentState -> {
+                    progressDialog.dismiss()
+                }
+
                 is ErrorState -> {
                     progressDialog.dismiss()
                     showToastMsg(state.message)
@@ -64,8 +72,8 @@ class HomeFragment : BaseFragment() {
             }
         }
 
-        viewModel.propertiesListLiveData.observe(viewLifecycleOwner) { photos ->
-            photosAdapter.setItems(photos)
+        viewModel.propertiesListLiveData.observe(viewLifecycleOwner) { properties ->
+            propertyAdapter.setItems(properties)
         }
     }
 }

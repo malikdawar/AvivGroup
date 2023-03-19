@@ -9,7 +9,6 @@ import com.example.avivgroup.R
  * @author Malik Dawar, malikdawar@hotmail.com
  */
 
-
 /**
  * Extension function to noNetworkErrorMessage
  * @author Dawar Malik.
@@ -22,14 +21,3 @@ fun noNetworkErrorMessage() =
  * @author Dawar Malik.
  */
 fun somethingWentWrong() = App.getAppContext().getString(R.string.message_something_went_wrong_str)
-
-/**
- * Extension function to Verify the URL
- * @author Dawar Malik.
- */
-fun String.checkValidURL(): String? {
-    if (Patterns.WEB_URL.matcher(this).matches())
-        return this
-
-    return null
-}

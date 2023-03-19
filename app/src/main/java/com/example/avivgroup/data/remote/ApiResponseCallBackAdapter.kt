@@ -12,7 +12,7 @@ import java.lang.reflect.Type
  * A Retrofit adapter that converts the Call into a ApiResponse
  */
 class ApiResponseCallBackAdapter constructor(
-    private val responseType: Type
+    private val responseType: Type,
 ) : CallAdapter<Type, Call<ApiResponse<Type>>> {
 
     override fun responseType(): Type {
@@ -33,7 +33,8 @@ class ApiResponseCallBackAdapter constructor(
 
                 override fun onFailure(call: Call<Type>, t: Throwable) {
                     callback.onResponse(
-                        this@ApiResponseCall, Response.success(ApiResponse.exception(t))
+                        this@ApiResponseCall,
+                        Response.success(ApiResponse.exception(t)),
                     )
                 }
             })

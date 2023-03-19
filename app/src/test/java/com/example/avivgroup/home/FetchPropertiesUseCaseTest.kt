@@ -1,9 +1,8 @@
 package com.example.avivgroup.home
 
-import com.example.avivgroup.StringGenerator
 import com.example.avivgroup.data.DataState
 import com.example.avivgroup.data.PhotosDataSource
-import com.example.avivgroup.data.repository.PropertiesRepository
+import com.example.avivgroup.data.repository.properties.PropertiesRepository
 import com.example.avivgroup.data.usecases.FetchPropertiesUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -31,30 +30,31 @@ class FetchPropertiesUseCaseTest {
     }
 
     @Test
-    fun `given when the invoke in FetchPhotosUseCase is called then it fetch the photos`() = runBlocking {
-        // Given
-        val sut = FetchPropertiesUseCase(repository)
-        val givenPhotos = PhotosDataSource.getPhotosList()
+    fun `given when the invoke in FetchPhotosUseCase is called then it fetch the photos`() =
+        runBlocking {
+            // Given
+            val sut = FetchPropertiesUseCase(repository)
+            val givenPhotos = PhotosDataSource.getPhotosList()
 
-        // When
-        coEvery { repository.loadProperties(any(), any(), any(), any()) }
-            .returns(flowOf(DataState.success(givenPhotos)))
+            // When
+            coEvery { repository.loadProperties() }
+                .returns(flowOf(DataState.success(givenPhotos)))
 
-        // Invoke
-        val photosListFlow = sut(apiKey = StringGenerator.getRandomString(20))
+            // Invoke
+            val photosListFlow = sut()
 
-        // Then
-        MatcherAssert.assertThat(photosListFlow, CoreMatchers.notNullValue())
+            // Then
+            MatcherAssert.assertThat(photosListFlow, CoreMatchers.notNullValue())
 
-        val photosListDataState = photosListFlow.first()
-        MatcherAssert.assertThat(photosListDataState, CoreMatchers.notNullValue())
-        MatcherAssert.assertThat(
-            photosListDataState,
-            CoreMatchers.instanceOf(DataState.Success::class.java)
-        )
+            val photosListDataState = photosListFlow.first()
+            MatcherAssert.assertThat(photosListDataState, CoreMatchers.notNullValue())
+            MatcherAssert.assertThat(
+                photosListDataState,
+                CoreMatchers.instanceOf(DataState.Success::class.java),
+            )
 
-        val photosList = (photosListDataState as DataState.Success).data
-        MatcherAssert.assertThat(photosList, CoreMatchers.notNullValue())
-        MatcherAssert.assertThat(photosList.hits?.size, `is`(givenPhotos.hits?.size))
-    }
+            val photosList = (photosListDataState as DataState.Success).data
+            MatcherAssert.assertThat(photosList, CoreMatchers.notNullValue())
+            MatcherAssert.assertThat(photosList.hits?.size, `is`(givenPhotos.hits?.size))
+        }
 }

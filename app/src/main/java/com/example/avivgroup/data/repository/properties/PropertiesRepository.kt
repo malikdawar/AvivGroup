@@ -1,4 +1,4 @@
-package com.example.avivgroup.data.repository
+package com.example.avivgroup.data.repository.properties
 
 import com.example.avivgroup.data.DataState
 import com.example.avivgroup.data.model.PropertyResponse

@@ -14,12 +14,12 @@ data class PropertyResponse(
 @Parcelize
 data class PropertyModel(
     @Expose val id: Int,
-    @Expose val bedrooms: String,
-    @Expose val city: String,
-    @Expose val url: String,
-    @Expose val price: Double,
-    @Expose val area: Float,
-    @Expose val offerType: Int,
-    @Expose val rooms: Int,
-    @Expose val propertyType: String,
+    @Expose val bedrooms: Int?,
+    @Expose val city: String?,
+    @Expose val url: String?,
+    @Expose val price: Double?,
+    @Expose val area: Float?,
+    @Expose val offerType: Int?,
+    @Expose val rooms: Int?,
+    @Expose val propertyType: String?,
 ) : Parcelable

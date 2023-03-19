@@ -5,7 +5,7 @@ package com.example.avivgroup.data.remote
  */
 @SuspensionFunction
 suspend fun <T> ApiResponse<T>.onSuccessSuspend(
-    onResult: suspend ApiResponse.ApiSuccessResponse<T>.() -> Unit
+    onResult: suspend ApiResponse.ApiSuccessResponse<T>.() -> Unit,
 ): ApiResponse<T> {
     if (this is ApiResponse.ApiSuccessResponse) {
         onResult(this)
@@ -13,13 +13,12 @@ suspend fun <T> ApiResponse<T>.onSuccessSuspend(
     return this
 }
 
-
 /**
  * A suspend function for handling error response.
  */
 @SuspensionFunction
 suspend fun <T> ApiResponse<T>.onErrorSuspend(
-    onResult: suspend ApiResponse.ApiFailureResponse.Error<T>.() -> Unit
+    onResult: suspend ApiResponse.ApiFailureResponse.Error<T>.() -> Unit,
 ): ApiResponse<T> {
     if (this is ApiResponse.ApiFailureResponse.Error) {
         onResult(this)
@@ -27,20 +26,18 @@ suspend fun <T> ApiResponse<T>.onErrorSuspend(
     return this
 }
 
-
 /**
  * A suspend function for handling exception response.
  */
 @SuspensionFunction
 suspend fun <T> ApiResponse<T>.onExceptionSuspend(
-    onResult: suspend ApiResponse.ApiFailureResponse.Exception<T>.() -> Unit
+    onResult: suspend ApiResponse.ApiFailureResponse.Exception<T>.() -> Unit,
 ): ApiResponse<T> {
     if (this is ApiResponse.ApiFailureResponse.Exception) {
         onResult(this)
     }
     return this
 }
-
 
 /** A message from the [ApiResponse.ApiFailureResponse.Error]. */
 fun <T> ApiResponse.ApiFailureResponse.Error<T>.message(): String = toString()

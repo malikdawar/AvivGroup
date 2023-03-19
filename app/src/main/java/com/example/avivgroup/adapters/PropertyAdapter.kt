@@ -5,26 +5,26 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.avivgroup.core.utils.load
 import com.example.avivgroup.data.model.PropertyModel
-import com.example.avivgroup.databinding.RowItemPhotoBinding
+import com.example.avivgroup.databinding.RowItemPropertyBinding
 
-class PhotosAdapter :
-    RecyclerView.Adapter<PhotosAdapter.PhotoViewHolder>() {
+class PropertyAdapter :
+    RecyclerView.Adapter<PropertyAdapter.PhotoViewHolder>() {
 
-    lateinit var onPhotoSelected: (PropertyModel) -> Unit
-    private val photoItems: ArrayList<PropertyModel> = arrayListOf()
+    lateinit var onPropertySelected: (PropertyModel) -> Unit
+    private val properties: ArrayList<PropertyModel> = arrayListOf()
 
     fun setItems(photosList: List<PropertyModel>) {
-        photoItems.clear()
-        photoItems.addAll(photosList)
-        notifyDataSetChanged()
+        properties.clear()
+        properties.addAll(photosList)
+        notifyItemRangeInserted(0, photosList.size)
     }
 
-    fun onPhotoSelectionListener(listener: (PropertyModel) -> Unit) {
-        onPhotoSelected = listener
+    fun onPropertySelectionListener(listener: (PropertyModel) -> Unit) {
+        onPropertySelected = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
-        val binding = RowItemPhotoBinding.inflate(
+        val binding = RowItemPropertyBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false,
@@ -33,19 +33,19 @@ class PhotosAdapter :
     }
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
-        holder.bind(photoItems[position], position)
+        holder.bind(properties[position], position)
     }
 
-    override fun getItemCount() = photoItems.size
+    override fun getItemCount() = properties.size
 
-    inner class PhotoViewHolder(private val rowItemPhotoBinding: RowItemPhotoBinding) :
+    inner class PhotoViewHolder(private val rowItemPhotoBinding: RowItemPropertyBinding) :
         RecyclerView.ViewHolder(rowItemPhotoBinding.root) {
 
         fun bind(propertyModel: PropertyModel, position: Int) {
             rowItemPhotoBinding.apply {
                 imgPhoto.load(propertyModel.url)
                 cardPhoto.setOnClickListener {
-                    onPhotoSelected(propertyModel)
+                    onPropertySelected(propertyModel)
                 }
             }
         }

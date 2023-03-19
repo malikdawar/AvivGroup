@@ -1,4 +1,5 @@
 package com.example.avivgroup.data.remote
+
 import retrofit2.Response
 
 sealed class ApiResponse<out T> {
@@ -23,7 +24,7 @@ sealed class ApiResponse<out T> {
 
         fun <T> create(
             successCodeRange: IntRange = 200..299,
-            response: Response<T>
+            response: Response<T>,
         ): ApiResponse<T> = try {
             if (response.raw().code in successCodeRange) {
                 ApiSuccessResponse(response)
