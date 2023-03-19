@@ -1,4 +1,4 @@
-package com.example.avivgroup
+package com.example.avivgroup.utils
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

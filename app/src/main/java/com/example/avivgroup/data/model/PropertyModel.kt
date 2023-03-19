@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class PropertyResponse(
     @field:SerializedName("items")
-    val hits: List<PropertyModel>? = null,
+    val properties: List<PropertyModel>? = null,
 ) : Parcelable
 
 @Parcelize
@@ -18,7 +18,7 @@ data class PropertyModel(
     @Expose val city: String?,
     @Expose val url: String?,
     @Expose val price: Double?,
-    @Expose val area: Float?,
+    @Expose val area: Double?,
     @Expose val offerType: Int?,
     @Expose val rooms: Int?,
     @Expose val propertyType: String?,

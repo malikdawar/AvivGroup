@@ -2,14 +2,14 @@ package com.example.avivgroup.home
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.example.avivgroup.TestCoroutineRule
 import com.example.avivgroup.data.DataState
-import com.example.avivgroup.data.PhotosDataSource
+import com.example.avivgroup.data.PropertyDataSource
 import com.example.avivgroup.data.model.PropertyModel
 import com.example.avivgroup.data.usecases.FetchPropertiesUseCase
 import com.example.avivgroup.ui.home.ContentState
 import com.example.avivgroup.ui.home.HomeUiState
 import com.example.avivgroup.ui.home.HomeViewModel
+import com.example.avivgroup.utils.TestCoroutineRule
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -35,7 +35,7 @@ class HomeViewModelTest {
     var coroutinesRule = TestCoroutineRule()
 
     @MockK
-    lateinit var fetchPopularPhotosUsecase: FetchPropertiesUseCase
+    lateinit var fetchPropertiesUseCase: FetchPropertiesUseCase
 
     @Before
     fun setUp() {
@@ -43,24 +43,24 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun `test when HomeViewModel is initialized, popular photos are fetched`() = runBlocking {
+    fun `test when HomeViewModel is initialized, all properties are fetched`() = runBlocking {
         // Given
-        val givenPhotos = PhotosDataSource.getPhotosList()
+        val propertyResponse = PropertyDataSource.propertyResponse()
         val uiObserver = mockk<Observer<HomeUiState>>(relaxed = true)
-        val photosListObserver = mockk<Observer<List<PropertyModel>>>(relaxed = true)
+        val propertiesListObserver = mockk<Observer<List<PropertyModel>>>(relaxed = true)
 
         // When
-        coEvery { fetchPopularPhotosUsecase.invoke(any(), any(), any()) }
-            .returns(flowOf(DataState.success(givenPhotos)))
+        coEvery { fetchPropertiesUseCase.invoke() }
+            .returns(flowOf(DataState.success(propertyResponse)))
 
         // Invoke
-        sut = HomeViewModel(fetchPopularPhotosUsecase)
+        sut = HomeViewModel(fetchPropertiesUseCase)
         sut.uiStateLiveData.observeForever(uiObserver)
-        sut.propertiesListLiveData.observeForever(photosListObserver)
+        sut.propertiesListLiveData.observeForever(propertiesListObserver)
 
         // Then
-        coVerify(exactly = 1) { fetchPopularPhotosUsecase.invoke() }
+        coVerify(exactly = 1) { fetchPropertiesUseCase.invoke() }
         verify { uiObserver.onChanged(match { it == ContentState }) }
-        verify { photosListObserver.onChanged(match { it.size == givenPhotos.hits?.size }) }
+        verify { propertiesListObserver.onChanged(match { it.size == propertyResponse.properties?.size }) }
     }
 }

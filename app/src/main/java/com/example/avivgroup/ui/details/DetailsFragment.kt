@@ -64,7 +64,7 @@ class DetailsFragment : BaseFragment(R.layout.fragment_property_details) {
 
         viewModel.propertyModelLiveData.observe(viewLifecycleOwner) {
             viewBinding.photoView.load(it.url)
-            viewBinding.propertyCityName.text = it.city
+            viewBinding.propertyCityName.text = "${it.propertyType}, ${it.city}"
             viewBinding.propertyPrice.text = it.price.toString()
         }
     }

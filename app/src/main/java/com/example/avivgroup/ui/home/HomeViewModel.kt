@@ -40,7 +40,7 @@ class HomeViewModel @Inject constructor(
                 when (dataState) {
                     is DataState.Success -> {
                         _uiState.postValue(ContentState)
-                        dataState.data.hits?.let {
+                        dataState.data.properties?.let {
                             _propertiesList.postValue(it)
                         }
                     }

@@ -21,7 +21,7 @@ class ApiResponseTest {
     }
 
     @Test
-    fun `test message is not null or blank when hving the Exception response`() {
+    fun `test message is not null or blank when having the Exception response`() {
         val exception = Exception("message")
         val apiResponse = ApiResponse.exception<String>(exception)
         MatcherAssert.assertThat(apiResponse.message, CoreMatchers.`is`("message"))

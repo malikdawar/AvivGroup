@@ -61,7 +61,7 @@ class NetworkApiModule {
 
     @Singleton
     @Provides
-    fun providesUnsplashApiService(retrofit: Retrofit): ApiInterface {
+    fun providesApiService(retrofit: Retrofit): ApiInterface {
         return retrofit.create(ApiInterface::class.java)
     }
 }
