@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.photodetails.PhotoDetailsFragment">
+    android:orientation="vertical">
+
 
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/photo_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="320dp" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/propertyCityName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/activity_half"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textSize16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/propertyPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/activity_half"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textSize16sp"
+        android:textStyle="bold" />
+
+</LinearLayout>

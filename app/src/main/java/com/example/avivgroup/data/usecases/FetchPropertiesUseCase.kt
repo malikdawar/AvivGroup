@@ -4,7 +4,7 @@ import com.example.avivgroup.data.repository.properties.PropertiesRepository
 import javax.inject.Inject
 
 /**
- * A use-case to load the photos from Unsplash API.
+ * A use-case to load the properties from API.
  * @author Malik Dawar
  */
 class FetchPropertiesUseCase @Inject constructor(

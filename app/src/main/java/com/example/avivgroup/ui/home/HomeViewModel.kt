@@ -29,10 +29,10 @@ class HomeViewModel @Inject constructor(
     var propertiesListLiveData: LiveData<List<PropertyModel>> = _propertiesList
 
     init {
-        fetchPhotos()
+        fetchProperties()
     }
 
-    private fun fetchPhotos() {
+    private fun fetchProperties() {
         _uiState.postValue(LoadingState)
 
         viewModelScope.launch {
