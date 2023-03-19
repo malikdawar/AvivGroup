@@ -1,0 +1,30 @@
+{
+  "total": 1182031,
+  "totalHits": 500,
+  "hits": [
+    {
+      "id": 5352510,
+      "pageURL": "https://pixabay.com/photos/snail-animal-wood-crawl-slow-5352510/",
+      "type": "photo",
+      "tags": "snail, animal, wood",
+      "previewURL": "https://cdn.pixabay.com/photo/2020/06/29/12/11/snail-5352510_150.jpg",
+      "previewWidth": 150,
+      "previewHeight": 107,
+      "webformatURL": "https://pixabay.com/get/g89e5567eb3b37b667b1bba0ddbb974f56a1d33875dc66213af3d8f2889078f6ebd6007fce20c565aacaf823ae4a851a59b2c26892c6f085b7a87a6cefa75db84_640.jpg",
+      "webformatWidth": 640,
+      "webformatHeight": 456,
+      "largeImageURL": "https://pixabay.com/get/gf5528b88e1e5d56623b80f8249a24ef95939d08a2893fb71069a158def9954072cb9614c2e4a42bd01ef5c086c2e7edfb71e2e5d5a636710845b1e1e15557b26_1280.jpg",
+      "imageWidth": 5213,
+      "imageHeight": 3712,
+      "imageSize": 2121978,
+      "views": 30236,
+      "downloads": 27100,
+      "collections": 101,
+      "likes": 152,
+      "comments": 20,
+      "user_id": 686414,
+      "user": "Alexas_Fotos",
+      "userImageURL": "https://cdn.pixabay.com/user/2021/05/06/10-24-10-84_250x250.jpg"
+    }
+  ]
+}
